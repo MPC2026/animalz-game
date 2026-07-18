@@ -1,0 +1,44 @@
+# Visual Studio cache
+.vscode/
+bin/
+obj/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio 2015/2017 cache/options directory
+.vs/
+
+# User-specific files
+*.csuser
+*.suo
+*.user
+*.userosscache
+
+# Supabase configuration (SENSITIVE!)
+appsettings.json
+appsettings.Development.json
+SupabaseService.cs.bak
+
+# Publish output (use for deployment only)
+publish/
+wwwroot/_framework/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
