@@ -1,0 +1,2 @@
+/Users/michael/Documents/Michael/My Apps/Projects/Websites/Animalz/publish/emcc-props.json
+/Users/michael/Documents/Michael/My Apps/Projects/Websites/Animalz/publish/web.config

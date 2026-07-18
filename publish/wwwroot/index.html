@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AnimalZ - Adopt Your Animal!</title>
+    <link rel="icon" type="image/png" href="/assets/Animalz_icon.png" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+    <link href="css/site.css" rel="stylesheet" />
+    <base href="/" />
+    <style>
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        #loading-screen img {
+            max-width: 80%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading-screen">
+        <img src="/assets/Animalz_logo.png" alt="AnimalZ" />
+    </div>
+    <div id="app"></div>
+
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script>
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                document.getElementById('loading-screen').style.display = 'none';
+                // Redirect to login page after splash screen
+                window.location.href = '/login';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+@page "/park"
+@using AnimalZ.Models
+@inject NavigationManager Navigation
+
+<h1 class="text-3xl font-bold text-center mt-6">Welcome to the Park!</h1>
+
+<div class="max-w-4xl mx-auto p-4">
+    <div class="bg-blue-50 rounded-lg p-6 mb-6">
+        <h2 class="text-xl font-semibold mb-2">Your Animals</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+            @foreach (var item in userAnimals)
+            {
+                <div class="bg-white rounded-lg p-3 shadow">
+                    <img src="@item.ImageUrl" alt="@item.Nickname" class="w-full h-24 object-cover rounded mb-2" />
+                    <p class="font-semibold">@item.Nickname</p>
+                    <p class="text-sm text-gray-600">@item.Species</p>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="bg-white rounded-lg p-6">
+        <h2 class="text-xl font-semibold mb-4">Available Parks</h2>
+        
+        @if (parks.Count == 0)
+        {
+            <p class="text-gray-600">No parks available yet. Create one!</p>
+        }
+        else
+        {
+            <div class="space-y-3">
+                @foreach (var park in parks)
+                {
+                    <div class="border rounded-lg p-4 flex justify-between items-center">
+                        <div>
+                            <h3 class="font-semibold">@park.Name</h3>
+                            <p class="text-sm text-gray-600">@park.Description</p>
+                            <p class="text-xs text-gray-500">Max Capacity: @park.MaxCapacity</p>
+                        </div>
+                        <button @onclick="() => JoinPark(park)" 
+                                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                            Enter Park
+                        </button>
+                    </div>
+                }
+            </div>
+        }
+
+        <div class="mt-6 border-t pt-4">
+            <button @onclick="CreateNewPark" 
+                    class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition">
+                + Create New Park
+            </button>
+        </div>
+    </div>
+
+    @if (showJoinPrompt)
+    {
+        <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white rounded-lg p-6 max-w-md w-full">
+                <h2 class="text-xl font-semibold mb-4">Join Park</h2>
+                <p>You're joining: <strong>@selectedPark?.Name</strong></p>
+                <p class="mt-4 text-sm text-gray-600">Other players will be able to see and play with your animals here!</p>
+                
+                <div class="flex gap-3 mt-6">
+                    <button @onclick="ConfirmJoin" 
+                            class="flex-1 bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">
+                        Join Park
+                    </button>
+                    <button @onclick="CancelJoin" 
+                            class="flex-1 bg-gray-300 text-gray-700 py-2 rounded hover:bg-gray-400 transition">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (showCreatePark)
+    {
+        <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div class="bg-white rounded-lg p-6 max-w-md w-full">
+                <h2 class="text-xl font-semibold mb-4">Create New Park</h2>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Park Name</label>
+                    <input @bind="newParkName" type="text" 
+                           class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-gray-700 mb-2">Description (optional)</label>
+                    <textarea @bind="newParkDescription" rows="3"
+                              class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+
+                <div class="flex gap-3">
+                    <button @onclick="SubmitCreatePark" 
+                            class="flex-1 bg-green-500 text-white py-2 rounded hover:bg-green-600 transition">
+                        Create Park
+                    </button>
+                    <button @onclick="CancelCreatePark" 
+                            class="flex-1 bg-gray-300 text-gray-700 py-2 rounded hover:bg-gray-400 transition">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private List<UserAnimal> userAnimals = new();
+    private List<Park> parks = new();
+    private Park? selectedPark;
+    
+    private string newParkName = "";
+    private string newParkDescription = "";
+    
+    private bool showJoinPrompt = false;
+    private bool showCreatePark = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadUserAnimals();
+        await LoadParks();
+    }
+
+    private async Task LoadUserAnimals()
+    {
+        // Sample data - will be replaced with actual API call
+        userAnimals = new List<UserAnimal>
+        {
+            new UserAnimal { Nickname = "Leo", Species = "Lion", ImageUrl = "/images/lion.png" },
+            new UserAnimal { Nickname = "Manny", Species = "Elephant", ImageUrl = "/images/elephant.png" }
+        };
+    }
+
+    private async Task LoadParks()
+    {
+        parks = new List<Park>
+        {
+            new Park { Name = "Central Park", Description = "The main meeting place!", MaxCapacity = 50 },
+            new Park { Name = "Zoo Playground", Description = "Perfect for young animals", MaxCapacity = 30 }
+        };
+    }
+
+    private void JoinPark(Park park)
+    {
+        selectedPark = park;
+        showJoinPrompt = true;
+    }
+
+    private async Task ConfirmJoin()
+    {
+        if (selectedPark != null)
+        {
+            // TODO: Call SupabaseService to join the park
+            showJoinPrompt = false;
+            Navigation.NavigateTo($"/park/{selectedPark.Id}");
+        }
+    }
+
+    private void CancelJoin()
+    {
+        showJoinPrompt = false;
+        selectedPark = null;
+    }
+
+    private void CreateNewPark()
+    {
+        newParkName = "";
+        newParkDescription = "";
+        showCreatePark = true;
+    }
+
+    private async Task SubmitCreatePark()
+    {
+        if (!string.IsNullOrWhiteSpace(newParkName))
+        {
+            // TODO: Call SupabaseService to create the park
+            showCreatePark = false;
+            await LoadParks();
+        }
+    }
+
+    private void CancelCreatePark()
+    {
+        showCreatePark = false;
+    }
+}

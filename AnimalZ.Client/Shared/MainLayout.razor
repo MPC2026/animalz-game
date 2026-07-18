@@ -1,0 +1,9 @@
+<main class="min-h-screen bg-gray-100">
+    <NavMenu />
+    @ChildContent
+</main>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

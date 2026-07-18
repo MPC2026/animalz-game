@@ -1,0 +1,10 @@
+# Blazor WebAssembly MIME types
+AddType application/wasm .wasm
+AddType application/octet-stream .json
+
+# Enable compression
+<IfModule mod_deflate.c>
+    <FilesMatch "\.(js|css|html|json|wasm)$">
+        SetOutputFilter DEFLATE
+    </FilesMatch>
+</IfModule>

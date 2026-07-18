@@ -1,0 +1,159 @@
+/* AnimalZ Game Styles - Fun & Playful Theme */
+
+:root {
+  /* Primary Colors - Based on playful animal themes */
+  --primary-bg: #F0FFF4;           /* Light mint/green background */
+  --primary-primary: #4CAF50;      /* Green - for buttons and accents */
+  --primary-secondary: #FF9800;    /* Orange - energy and fun */
+  --primary-accent: #2196F3;       /* Blue - trust and playfulness */
+  
+  /* Animal-inspired colors */
+  --lion-gold: #FFD700;            /* Lion's mane/golden accents */
+  --elephant-gray: #8D6E63;        /* Elephant gray */
+  --zebra-black: #212121;          /* Zebra black */
+  --giraffe-brown: #795548;        /* Giraffe brown */
+  
+  /* Text colors */
+  --text-primary: #212121;         /* Dark gray for main text */
+  --text-secondary: #616161;       /* Medium gray for secondary text */
+  --text-light: #FFFFFF;           /* White for dark backgrounds */
+  
+  /* Status colors */
+  --success: #4CAF50;              /* Success green */
+  --warning: #FF9800;              /* Warning orange */
+  --error: #F44336;                /* Error red */
+  --info: #2196F3;                 /* Info blue */
+  
+  /* Shadows and borders */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 20px rgba(0,0,0,0.15);
+  --border-radius: 12px;
+}
+
+/* Global styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+}
+
+/* Card styles */
+.animal-card {
+  background: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.animal-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Button styles */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--primary-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #43A047;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background-color: var(--primary-secondary);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #FB8C00;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--primary-primary);
+  color: var(--primary-primary);
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-bg);
+}
+
+/* Input styles */
+.input-field {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #E0E0E0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--primary-primary);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Badge styles */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.badge-success {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: var(--success);
+}
+
+/* Animation styles */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
